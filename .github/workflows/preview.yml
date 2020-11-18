@@ -20,6 +20,6 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         with:
-          body: 'testbody'
+          body: '${{ github.event.issue.body }}'
           tag_name: 'testTAG'
           release_name: 'testRELEASENAME'
