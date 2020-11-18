@@ -4,12 +4,15 @@
     workflow_dispatch: {}
 name: Preview
 jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
+jobs:
   build-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    needs:
-      - build-and-test
-      - static-code-analysis
     steps:
       - name: my-step
         run: echo "Hello World!"
