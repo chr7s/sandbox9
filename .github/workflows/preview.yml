@@ -4,11 +4,12 @@
     workflow_dispatch: {}
 name: Preview
 jobs:
-  runs-on: ubuntu-latest
-  timeout-minutes: 10
-  needs:
-    - build-and-test
-    - static-code-analysis
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      - build-and-test
+      - static-code-analysis
 steps:
   - uses: actions/create-release@v1
     id: githubCreateRelease
