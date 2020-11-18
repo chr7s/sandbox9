@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: my-step
         run: echo "Hello World!"
-jobs:
   build-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
