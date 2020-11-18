@@ -10,7 +10,7 @@ jobs:
       - build-and-test
       - static-code-analysis
 steps:
-    - uses: actions/create-release@v1
+  - uses: actions/create-release@v1
     id: githubCreateRelease
     env:
       GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
