@@ -13,7 +13,6 @@ jobs:
     steps:
       - name: my-step
         run: echo "Hello World!"
-    steps:
       - uses: actions/create-release@v1
         id: githubCreateRelease
         env:
