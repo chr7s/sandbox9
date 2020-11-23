@@ -22,7 +22,7 @@ jobs:
       - name: Start new release cycle
         run: |2-
 
-                  version=`cat package.json | jq -r .version`
+                  export version=`cat package.json | jq -r .version`
                   echo "Current version: $version"
                   echo "CURRENT_VERSION=${version}" >> $GITHUB_ENV
                   
