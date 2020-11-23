@@ -1,6 +1,6 @@
 'on':
     schedule:
-      - cron: "*/5 * * * *"
+      - cron: 0 6 * * 1-5
     workflow_dispatch: {}
 name: Preview
 jobs:
@@ -21,8 +21,9 @@ jobs:
       - name: Start new release cycle
         run: |2-
 
-                  echo (cat package.json | jq -r .version)
-                  echo "::set-env name=CURRENT_VERSION::$(cat package.json | jq -r .version)"
+                  version=`cat package.json | jq -r .version`
+                  echo "Current version: $version"
+                  echo "::set-env name=CURRENT_VERSION::${version}"
                   
       - uses: actions/create-release@v1
         id: githubCreateRelease
