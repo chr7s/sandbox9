@@ -18,11 +18,17 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M')"
+      - name: Start new release cycle
+        run: |2-
+
+                  echo "::set-env name=CURRENT_VERSION::\$(cat package.json | jq -r .version)"
+                  
       - uses: actions/create-release@v1
         id: githubCreateRelease
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         with:
-          body: '${{ github.event.issue.body }}'
+          body: 'daily-preview-${{ steps.date.outputs.date }}'
           tag_name: 'daily-preview-${{ steps.date.outputs.date }}'
           release_name: 'daily-preview-${{ steps.date.outputs.date }}'
+          prerelease: true
