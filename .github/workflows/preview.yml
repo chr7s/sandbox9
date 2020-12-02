@@ -31,7 +31,9 @@ jobs:
 
               git fetch --tags
               tagname=`git tag --list '*_PREVIEW_*' | tail -1`
+              echo $tagname
               commitHash=`git show-ref ${tagname} | awk '{print $1}'`
+              echo $commitHash
               echo "CURRENT_COMMIT_HASH=$commitHash" >> $GITHUB_ENV
               
       - name: Compare commit hashes
