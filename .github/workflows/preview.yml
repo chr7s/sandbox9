@@ -39,7 +39,8 @@ jobs:
         env:
           CURRENT_COMMIT_HASH: '${{ github.sha }}'
         run: |2-
-
+              echo $hash
+              echo ${CURRENT_COMMIT_HASH}
               if [ "$hash" = "${CURRENT_COMMIT_HASH}" ]; then
                   echo "::set-output isCommitHashEqual=true"
               else
