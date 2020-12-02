@@ -29,13 +29,12 @@ jobs:
         id: latestPrereleaseHash
         run: |2-
 
-              git checkout develop
               git fetch --tags
               tagname=`git tag --list '*_PREVIEW_*' | tail -1`
               commitHash=git show-ref ${tagname} | awk '{print $1}'
               echo "IS_ALREADY_RELEASED=$commitHash" >> $GITHUB_ENV
               
-      - name: Determine current version
+      - name: Compare commit hashes
         id: isCommitHashEqual
         env:
           CURRENT_COMMIT_HASH: '${{ github.sha }}'
