@@ -25,7 +25,27 @@ jobs:
                   export version=`cat package.json | jq -r .version`
                   echo "Current version: $version"
                   echo "CURRENT_VERSION=${version}" >> $GITHUB_ENV
-                  
+      - name: Get latest prerelease
+        id: latestPrereleaseHash
+        run: |2-
+
+              git checkout develop
+              git fetch --tags
+              tagname=`git tag --list '*_PREVIEW_*' | tail -1`
+              commitHash=git show-ref ${tagname} | awk '{print $1}'
+              echo "IS_ALREADY_RELEASED=$commitHash" >> $GITHUB_ENV
+              
+      - name: Determine current version
+        id: isCommitHashEqual
+        env:
+          CURRENT_COMMIT_HASH: '${{ github.sha }}'
+        run: |2-
+
+              if [ "$hash" = "${CURRENT_COMMIT_HASH}" ]; then
+                  echo "::set-output isCommitHashEqual=true"
+              else
+                  echo "::set-output isCommitHashEqual=false"
+              fi            
       - uses: actions/create-release@v1
         id: githubCreateRelease
         env:
@@ -35,3 +55,8 @@ jobs:
           release_name: '${{ env.CURRENT_VERSION }}_PREVIEW_${{ steps.date.outputs.date }}'
           tag_name: '${{ env.CURRENT_VERSION }}_PREVIEW_${{ steps.date.outputs.date }}'
           prerelease: true
+  hello2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-step2
+        run: echo "Hello World2!"
