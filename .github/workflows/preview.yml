@@ -44,9 +44,9 @@ jobs:
               echo $PRERELEASE_COMMIT_HASH
               echo $CURRENT_COMMIT_HASH
               if [ "$PRERELEASE_COMMIT_HASH" = "$CURRENT_COMMIT_HASH" ]; then
-                  echo "IS_COMMIT_EQUAL=true" >> $GITHUB_ENV
+                  echo "IS_COMMIT_EQUAL='true'" >> $GITHUB_ENV
               else
-                  echo "IS_COMMIT_EQUAL=false" >> $GITHUB_ENV
+                  echo "IS_COMMIT_EQUAL='false'" >> $GITHUB_ENV
               fi        
       - uses: actions/create-release@v1
         if: $IS_COMMIT_EQUAL == 'true'
