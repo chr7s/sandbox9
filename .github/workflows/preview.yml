@@ -34,16 +34,16 @@ jobs:
               echo $tagname
               commitHash=`git show-ref ${tagname} | awk '{print $1}'`
               echo $commitHash
-              echo "CURRENT_COMMIT_HASH=$commitHash" >> $GITHUB_ENV
+              echo "PRERELEASE_COMMIT_HASH=$commitHash" >> $GITHUB_ENV
               
       - name: Compare commit hashes
         id: isCommitHashEqual
         env:
           CURRENT_COMMIT_HASH: '${{ github.sha }}'
         run: |2-
-              echo $hash
+              echo $PRERELEASE_COMMIT_HASH
               echo $CURRENT_COMMIT_HASH
-              if [ "$hash" = "$CURRENT_COMMIT_HASH" ]; then
+              if [ "$PRERELEASE_COMMIT_HASH" = "$CURRENT_COMMIT_HASH" ]; then
                   echo "::set-output isCommitHashEqual=true"
               else
                   echo "::set-output isCommitHashEqual=false"
