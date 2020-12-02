@@ -32,7 +32,7 @@ jobs:
               git fetch --tags
               tagname=`git tag --list '*_PREVIEW_*' | tail -1`
               commitHash=git show-ref ${tagname} | awk '{print $1}'
-              echo "IS_ALREADY_RELEASED=$commitHash" >> $GITHUB_ENV
+              echo "CURRENT_COMMIT_HASH=$commitHash" >> $GITHUB_ENV
               
       - name: Compare commit hashes
         id: isCommitHashEqual
