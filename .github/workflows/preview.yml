@@ -49,7 +49,7 @@ jobs:
                   echo "IS_COMMIT_EQUAL=false" >> $GITHUB_ENV
               fi        
       - uses: actions/create-release@v1
-        if: IS_COMMIT_EQUAL == true
+        if: $IS_COMMIT_EQUAL == true
         id: githubCreateRelease
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
