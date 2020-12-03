@@ -67,7 +67,7 @@ jobs:
       - build-and-test
     env:
       IS_COMMIT_EQUAL: '${{needs.build-and-test.outputs.IS_COMMIT_EQUAL}}'
-    if: ${ env.IS_COMMIT_EQUAL } == 'false'
+    if: ${{ env.IS_COMMIT_EQUAL }} == 'false'
     steps:
       - name: my-step2
         run: echo "Hello World2!"
