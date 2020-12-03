@@ -68,4 +68,4 @@ jobs:
     if: ${{needs.build-and-test.outputs.IS_COMMIT_EQUAL}} != 'true'
     steps:
       - name: my-step2
-        run: echo "Hello World2!"
+        run: echo ${{needs.build-and-test.outputs.IS_COMMIT_EQUAL}}
