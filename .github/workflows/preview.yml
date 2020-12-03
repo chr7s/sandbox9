@@ -44,14 +44,14 @@ jobs:
               echo $PRERELEASE_COMMIT_HASH
               echo $CURRENT_COMMIT_HASH
               if [ "$PRERELEASE_COMMIT_HASH" = "$CURRENT_COMMIT_HASH" ]; then
-                  echo "::set-output isCommitHashEqual=true"
+                  echo "::set-output name=isCommitHashEqual::'true'"
               else
-                  echo "::set-output isCommitHashEqual=false"
-              fi        
+                  echo "::set-output name=isCommitHashEqual::'false'"
+              fi
               echo $IS_COMMIT_EQUAL
       - uses: actions/create-release@v1
-        if: ${{ steps.isCommitHashEqual.outputs.isCommitHashEqual }} = 'true'
         id: githubCreateRelease
+        if: ${{ steps.isCommitHashEqual.outputs.isCommitHashEqual }} = 'false'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         with:
