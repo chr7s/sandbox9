@@ -11,6 +11,8 @@ jobs:
         run: echo "Hello World!"
   build-and-test:
     runs-on: ubuntu-latest
+    outputs:
+      IS_COMMIT_EQUAL: '${{steps.isCommitHashEqual.outputs.isCommitHashEqual}'
     timeout-minutes: 10
     steps:
       - name: my-step
@@ -59,8 +61,13 @@ jobs:
           release_name: '${{ env.CURRENT_VERSION }}_PREVIEW_${{ steps.date.outputs.date }}'
           tag_name: '${{ env.CURRENT_VERSION }}_PREVIEW_${{ steps.date.outputs.date }}'
           prerelease: true
-  hello2:
+  deploy:
     runs-on: ubuntu-latest
+    needs:
+      - build-and-test
+    env:
+      IS_COMMIT_EQUAL: '${{needs.build-and-test.outputs.IS_COMMIT_EQUAL}}'
+    if: ${ env.IS_COMMIT_EQUAL } == 'false'
     steps:
       - name: my-step2
         run: echo "Hello World2!"
