@@ -51,7 +51,7 @@ jobs:
               echo $IS_COMMIT_EQUAL
       - uses: actions/create-release@v1
         id: githubCreateRelease
-        if: steps.isCommitHashEqual.outputs.isCommitHashEqual = 'false'
+        if: steps.isCommitHashEqual.outputs.isCommitHashEqual == 'false'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         with:
