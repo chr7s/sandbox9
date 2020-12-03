@@ -12,7 +12,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     outputs:
-      IS_COMMIT_EQUAL: '${{steps.isCommitHashEqual.outputs.isCommitHashEqual}'
+      IS_COMMIT_EQUAL: '${{steps.isCommitHashEqual.outputs.isCommitHashEqual}}'
     timeout-minutes: 10
     steps:
       - name: my-step
