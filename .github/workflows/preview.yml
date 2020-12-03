@@ -44,9 +44,9 @@ jobs:
               echo $PRERELEASE_COMMIT_HASH
               echo $CURRENT_COMMIT_HASH
               if [ "$PRERELEASE_COMMIT_HASH" = "$CURRENT_COMMIT_HASH" ]; then
-                  echo "::set-output name=isCommitHashEqual::'true'"
+                  echo "::set-output name=isCommitHashEqual::true"
               else
-                  echo "::set-output name=isCommitHashEqual::'false'"
+                  echo "::set-output name=isCommitHashEqual::false"
               fi
               echo $IS_COMMIT_EQUAL
       - uses: actions/create-release@v1
