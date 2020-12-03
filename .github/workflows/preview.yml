@@ -50,7 +50,7 @@ jobs:
               fi        
               echo $IS_COMMIT_EQUAL
       - uses: actions/create-release@v1
-        if: $IS_COMMIT_EQUAL == 'true'
+        if: ${{ steps.isCommitHashEqual.outputs.isCommitHashEqual }} = 'true'
         id: githubCreateRelease
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
