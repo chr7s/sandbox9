@@ -1,4 +1,6 @@
 'on':
+    schedule:
+      - cron: 0 6 * * 1-5
     workflow_dispatch: {}
 name: Preview
 jobs:
@@ -25,6 +27,30 @@ jobs:
                   export version=`cat package.json | jq -r .version`
                   echo "Current version: $version"
                   echo "CURRENT_VERSION=${version}" >> $GITHUB_ENV
+      - name: Get latest prerelease
+        id: latestPrereleaseHash
+        run: |2-
+
+              git fetch --tags
+              tagname=`git tag --list '*_PREVIEW_*' | tail -1`
+              echo $tagname
+              commitHash=`git show-ref ${tagname} | awk '{print $1}'`
+              echo $commitHash
+              echo "PRERELEASE_COMMIT_HASH=$commitHash" >> $GITHUB_ENV
+              
+      - name: Compare commit hashes
+        id: isCommitHashEqual
+        env:
+          CURRENT_COMMIT_HASH: '${{ github.sha }}'
+        run: |2-
+              echo $PRERELEASE_COMMIT_HASH
+              echo $CURRENT_COMMIT_HASH
+              if [ "$PRERELEASE_COMMIT_HASH" = "$CURRENT_COMMIT_HASH" ]; then
+                  echo "::set-output name=isCommitHashEqual::true"
+              else
+                  echo "::set-output name=isCommitHashEqual::false"
+              fi
+              echo $IS_COMMIT_EQUAL
       - uses: actions/create-release@v1
         id: githubCreateRelease
         if: steps.isCommitHashEqual.outputs.isCommitHashEqual != 'true'
