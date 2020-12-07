@@ -25,7 +25,7 @@ jobs:
         if: ${{ github.sha }} != ${{ steps.latestPrereleaseHash.outputs.latestPrereleaseHash }}
         run: |2-
               echo ${{ github.sha }}
-              echo steps.latestPrereleaseHash.outputs.latestPrereleaseHash
+              echo ${{ steps.latestPrereleaseHash.outputs.latestPrereleaseHash }}
               curl \
                 -X POST \
                 -H "Accept: application/vnd.github.v3+json" \
