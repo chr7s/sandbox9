@@ -22,7 +22,7 @@ jobs:
               echo $commitHash
               echo "PRERELEASE_COMMIT_HASH=$commitHash" >> $GITHUB_ENV 
       - name: Trigger Preview Workflow
-        if: ${{ github.sha }} != steps.latestPrereleaseHash.outputs.latestPrereleaseHash
+        if: ${{ github.sha }} != ${{ steps.latestPrereleaseHash.outputs.latestPrereleaseHash }}
         run: |2-
               echo ${{ github.sha }}
               echo steps.latestPrereleaseHash.outputs.latestPrereleaseHash
