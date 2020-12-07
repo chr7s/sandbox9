@@ -6,8 +6,6 @@ name: Preview Check
 jobs:
   check-for-changes:
     runs-on: ubuntu-latest
-    outputs:
-      IS_COMMIT_EQUAL: '${{steps.isCommitHashEqual.outputs.isCommitHashEqual}}'
     timeout-minutes: 10
     steps:
       - name: my-step
