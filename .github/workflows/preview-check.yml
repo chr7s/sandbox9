@@ -22,10 +22,10 @@ jobs:
               echo $commitHash
               echo "PRERELEASE_COMMIT_HASH=$commitHash" >> $GITHUB_ENV 
       - name: Trigger Preview Workflow
-        if: github.sha != steps.latestPrereleaseHash.outputs.latestPrereleaseHash
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        if: ${{ github.sha }} != steps.latestPrereleaseHash.outputs.latestPrereleaseHash
         run: |2-
+              echo ${{ github.sha }}
+              echo steps.latestPrereleaseHash.outputs.latestPrereleaseHash
               curl \
                 -X POST \
                 -H "Accept: application/vnd.github.v3+json" \
