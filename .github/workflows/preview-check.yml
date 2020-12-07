@@ -20,7 +20,7 @@ jobs:
               echo $tagname
               commitHash=`git show-ref ${tagname} | awk '{print $1}'`
               echo $commitHash
-              echo "PRERELEASE_COMMIT_HASH=$commitHash" >> $GITHUB_ENV 
+              echo "::set-output name=latestPrereleaseHash::$commitHash"
       - name: Trigger Preview Workflow
         if: ${{ github.sha }} != ${{ steps.latestPrereleaseHash.outputs.latestPrereleaseHash }}
         run: |2-
